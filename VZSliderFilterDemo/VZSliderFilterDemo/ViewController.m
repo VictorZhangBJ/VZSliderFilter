@@ -20,7 +20,7 @@
     self.view.backgroundColor = [UIColor grayColor];
     // Do any additional setup after loading the view, typically from a nib.
     
-    VZSliderFilter *slider = [[VZSliderFilter alloc] initWithFrame:CGRectMake(20, 100, 300, 70) andTitlesArray:@[@"-3",@"-2",@"-1",@"0",@"1",@"2",@"3"]];
+    VZSliderFilter *slider = [[VZSliderFilter alloc] initWithFrame:CGRectMake(20, 100, 300, 60) andTitlesArray:@[@"-3",@"-2",@"-1",@"0",@"1",@"2",@"3"]];
     [slider addTarget:self action:@selector(slideValueChanged:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:slider];
 }

@@ -72,6 +72,7 @@
     _oneSlotSize = 1.0*(self.frame.size.width - _leftOffset - _rightOffset)/(CGFloat)(_titlesArray.count -1);
     for (NSInteger i=0; i< _titlesArray.count; i++) {
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, _oneSlotSize, 25)];
+        label.backgroundColor = [UIColor blueColor];
         label.text = _titlesArray[i];
         label.font = _titleFont;
         label.shadowColor = _titleShaowColor;
@@ -93,7 +94,7 @@
 -(void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGColorRef shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.9].CGColor;
+    //CGColorRef shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.9].CGColor;
     
     //Fill main path
 //    CGContextSetFillColorWithColor(context, self.sliderColor.CGColor);
@@ -152,10 +153,10 @@
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationBeginsFromCurrentState:YES];
         if (i == index) {
-            label.center = CGPointMake(label.center.x, self.frame.size.height - 55 - _titleSelectedDistance);
+            label.center = CGPointMake(label.center.x, 12 - _titleSelectedDistance);
             [label setAlpha:1];
         }else{
-            label.center = CGPointMake(label.center.x, self.frame.size.height - 55);
+            label.center = CGPointMake(label.center.x, 12);
             [label setAlpha:_titleFadeAlpha];
         }
         [UIView commitAnimations];
@@ -188,12 +189,13 @@
 -(CGPoint)getCenterPointForIndex:(NSInteger)index
 {
     CGFloat pointX = _oneSlotSize * index + _leftOffset;
-    CGFloat pointY = index==0? self.frame.size.height - 55 - _titleSelectedDistance : self.frame.size.height - 55;
+    CGFloat pointY = index==0? 12 - _titleSelectedDistance : 12;
     return CGPointMake(pointX, pointY);
 }
 
 -(void)touchDown:(UIButton *)btn withEvent:(UIEvent *)event
 {
+    NSLog(@"touch down ");
     CGPoint currentPoint = [[[event allTouches] anyObject] locationInView:self];
     _diffPoint = CGPointMake(currentPoint.x - btn.frame.origin.x, currentPoint.y - btn.frame.origin.y);
     [self sendActionsForControlEvents:UIControlEventTouchDown];
@@ -201,7 +203,9 @@
 
 -(void)touchUp:(UIButton *)btn
 {
+    NSLog(@"touch up");
     _selectedIndex = [self getSelectedTitleInPoint:btn.center];
+    //self.selectedIndex = [self getSelectedTitleInPoint:btn.center];
     [self animateHandlerToIndex:_selectedIndex];
     [self sendActionsForControlEvents:UIControlEventTouchUpInside];
     [self sendActionsForControlEvents:UIControlEventValueChanged];
@@ -223,9 +227,10 @@
 
 -(void)itemSelected:(UITapGestureRecognizer *)gesture
 {
+    NSLog(@"触摸手势");
     self.selectedIndex = [self getSelectedTitleInPoint:[gesture locationInView:self]];
     [self sendActionsForControlEvents:UIControlEventTouchUpInside];
-    [self sendActionsForControlEvents:UIControlEventValueChanged];
+    //[self sendActionsForControlEvents:UIControlEventValueChanged];
     
 }
 
