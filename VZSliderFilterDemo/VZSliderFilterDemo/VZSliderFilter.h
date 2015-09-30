@@ -11,7 +11,13 @@
 @interface VZSliderFilter : UIControl
 
 @property (nonatomic) UIColor *sliderColor;
+@property(nonatomic) NSInteger selectedIndex;
+
 
 -(id)initWithFrame:(CGRect)frame andTitlesArray:(NSArray *)titlesArray;
+
+-(void) setTitlesColor:(UIColor *)color;
+-(void) setTitlesFont:(UIFont *)font;
+-(void) setHandlerColor:(UIColor *)color;
 
 @end
